@@ -19,11 +19,11 @@ ans1 = sum(diff(numbers) .> 0)
 # ╔═╡ 4822b345-8008-4620-8c1a-941fc3aa1ece
 w = 3
 
-# ╔═╡ 469be90e-ac7d-411b-90dc-d73d2ebb1cfa
-cumulative_sum = cumsum(numbers)
+# ╔═╡ 9a38a684-a49b-408e-8603-53d777dccc23
+sliding_window(x, k) = view.(Ref(x), (:).(1:length(x)-k+1,k:length(x)))
 
 # ╔═╡ bea54c92-7c64-4ca0-b602-e32adf69232b
-window_sum =  prepend!(cumulative_sum[w+1:end] - cumulative_sum[1:end-w], cumulative_sum[w])
+window_sum =  map(sum, sliding_window(numbers, w))
 
 # ╔═╡ 20c8f513-bc5f-4f9d-bbff-52015f81d27d
 ans2 = sum(diff(window_sum) .> 0)
@@ -279,7 +279,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═2010292b-df98-4bd6-be7c-ab65a19fd87e
 # ╠═e332507c-54d6-4a25-aa08-a2abaf43a23e
 # ╠═4822b345-8008-4620-8c1a-941fc3aa1ece
-# ╠═469be90e-ac7d-411b-90dc-d73d2ebb1cfa
+# ╠═9a38a684-a49b-408e-8603-53d777dccc23
 # ╠═bea54c92-7c64-4ca0-b602-e32adf69232b
 # ╠═20c8f513-bc5f-4f9d-bbff-52015f81d27d
 # ╟─00000000-0000-0000-0000-000000000001
