@@ -18,10 +18,28 @@ direction_mapping = Dict([
 	])
 
 # ╔═╡ d90e195c-71ae-4c57-82c4-4a3ef58b3661
-direction = map(x -> direction_mapping[x], data["direction"]).*data["amount"]
+direction = map(x -> direction_mapping[x], data["direction"])
+
+# ╔═╡ b21286ed-b109-4ac1-8c8c-2919b5452295
+movement = direction.*data["amount"]
 
 # ╔═╡ e1842dfc-3c9d-4b35-874b-f0c86b9e6fd2
-ans1 = prod(sum(direction, dims=1)...)
+ans1 = prod(sum(movement, dims=1)...)
+
+# ╔═╡ e1f28de1-475d-459c-829f-35624a369116
+aim = cumsum(hcat(movement...)[1,:])
+
+# ╔═╡ 338d63c9-b8f9-446e-a43d-5ccffc50c076
+forward = hcat(movement...)[2,:]
+
+# ╔═╡ a4824c2e-bd83-45a5-8890-a8a72d80ae42
+hor_pos = sum(forward)
+
+# ╔═╡ 6c747fbf-8f8c-4c6d-97bd-4559a45c70cc
+vert_pos = sum(forward.*aim)
+
+# ╔═╡ b9ee04e0-8966-45ef-90c2-0c0d92d1c082
+ans2 = hor_pos*vert_pos
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -331,6 +349,12 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═29dad5b4-5344-11ec-2892-f938299bd839
 # ╠═c9e9b054-1efe-47b9-939c-e505d905928f
 # ╠═d90e195c-71ae-4c57-82c4-4a3ef58b3661
+# ╠═b21286ed-b109-4ac1-8c8c-2919b5452295
 # ╠═e1842dfc-3c9d-4b35-874b-f0c86b9e6fd2
+# ╠═e1f28de1-475d-459c-829f-35624a369116
+# ╠═338d63c9-b8f9-446e-a43d-5ccffc50c076
+# ╠═a4824c2e-bd83-45a5-8890-a8a72d80ae42
+# ╠═6c747fbf-8f8c-4c6d-97bd-4559a45c70cc
+# ╠═b9ee04e0-8966-45ef-90c2-0c0d92d1c082
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
