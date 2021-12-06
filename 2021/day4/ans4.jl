@@ -4,9 +4,6 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ d430def1-7d9e-4d10-972f-de8c29a0888a
-using DelimitedFiles
-
 # ╔═╡ 35912504-54f5-11ec-140b-c15f3f74e92c
 data_raw = open("input.txt") do file
     split(read(file, String), "\n\n", keepempty=false)
@@ -62,26 +59,7 @@ open_squares_worst = boards_draw_order[best_board_idx_worst] .> final_turn_worst
 # ╔═╡ 65403be3-49e3-4e7b-bc8e-3507d5d25ba2
 ans2 = sum(open_squares_worst.*bingo_boards[best_board_idx_worst])*drawn_numbers[final_turn_worst]
 
-# ╔═╡ 00000000-0000-0000-0000-000000000001
-PLUTO_PROJECT_TOML_CONTENTS = """
-[deps]
-DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
-"""
-
-# ╔═╡ 00000000-0000-0000-0000-000000000002
-PLUTO_MANIFEST_TOML_CONTENTS = """
-# This file is machine-generated - editing it directly is not advised
-
-[[DelimitedFiles]]
-deps = ["Mmap"]
-uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
-
-[[Mmap]]
-uuid = "a63ad114-7e13-5084-954f-fe012c677804"
-"""
-
 # ╔═╡ Cell order:
-# ╠═d430def1-7d9e-4d10-972f-de8c29a0888a
 # ╠═35912504-54f5-11ec-140b-c15f3f74e92c
 # ╠═b2fea430-160f-4730-a97c-ccbbd8fa5be9
 # ╠═d9843060-9f0e-4a37-9e1b-30cf1fc617a4
@@ -98,5 +76,3 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 # ╠═65b8411e-1b49-401a-a611-e655bee9be7d
 # ╠═c6256e33-c3ef-4e57-9d4f-2bbbbe22305c
 # ╠═65403be3-49e3-4e7b-bc8e-3507d5d25ba2
-# ╟─00000000-0000-0000-0000-000000000001
-# ╟─00000000-0000-0000-0000-000000000002
