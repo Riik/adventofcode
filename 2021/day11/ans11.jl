@@ -44,7 +44,7 @@ function cycle(data)
 	flashed = d .> 9
 	d += disperse(flashed)
 	new_flash = xor.(d .> 9, flashed)
-	while sum(new_flash) > 1
+	while sum(new_flash) > 0
 		d += disperse(new_flash)
 		flashed .|= new_flash
 		new_flash = xor.(d .> 9, flashed)
