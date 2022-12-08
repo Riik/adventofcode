@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[33]:
+# In[1]:
 
 
 from aocd import get_data, submit
 data = get_data(year=2022, day=7).splitlines()
 
 
-# In[34]:
+# In[16]:
 
 
 tree = {}
@@ -43,14 +43,15 @@ for line in data:
             tree[p].append(file_size)
         else:
             tree[p] = [file_size]
-tree
+
+import json
+json.dumps(tree)
 
 
-# In[35]:
+# In[17]:
 
 
 folder_sizes = {}
-pwd = "/"
 def find_size_recursive(path):
     size = 0
     for file in tree[path]:
@@ -61,10 +62,11 @@ def find_size_recursive(path):
     folder_sizes[path] = size
     return size
 find_size_recursive("/")
+
 folder_sizes
 
 
-# In[43]:
+# In[8]:
 
 
 threshold = 100000
@@ -73,24 +75,24 @@ answer = get_answer(folder_sizes)
 answer
 
 
-# In[40]:
+# In[9]:
 
 
 submit(answer, year=2022, day=7, part="a")
 
 
-# In[45]:
+# In[12]:
 
 
 used = folder_sizes["/"]
 available_space = 70000000
 needed_free =    30000000
-target = available_space - needed_space
+target = available_space - needed_free
 to_delete = used - target
 to_delete
 
 
-# In[49]:
+# In[13]:
 
 
 size_list = list(zip(folder_sizes.keys(), folder_sizes.values()))
@@ -103,10 +105,23 @@ for dir_name, size in size_list:
 best_dir, smallest
 
 
-# In[50]:
+# In[18]:
+
+
+folder_sizes
+
+
+# In[14]:
 
 
 submit(smallest, year=2022, day=7, part="b")
+
+
+# In[19]:
+
+
+sum = 3
+sum([1,2,3,4])
 
 
 # In[ ]:
