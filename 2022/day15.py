@@ -1,33 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[100]:
+# In[2]:
 
 
 get_ipython().run_line_magic('pip', 'install shapely')
 
 
-# In[101]:
+# In[25]:
 
 
 from aocd import get_data, submit
 import re
 import numpy as np
 
-data = """Sensor at x=2, y=18: closest beacon is at x=-2, y=15
-Sensor at x=9, y=16: closest beacon is at x=10, y=16
-Sensor at x=13, y=2: closest beacon is at x=15, y=3
-Sensor at x=12, y=14: closest beacon is at x=10, y=16
-Sensor at x=10, y=20: closest beacon is at x=10, y=16
-Sensor at x=14, y=17: closest beacon is at x=10, y=16
-Sensor at x=8, y=7: closest beacon is at x=2, y=10
-Sensor at x=2, y=0: closest beacon is at x=2, y=10
-Sensor at x=0, y=11: closest beacon is at x=2, y=10
-Sensor at x=20, y=14: closest beacon is at x=25, y=17
-Sensor at x=17, y=20: closest beacon is at x=21, y=22
-Sensor at x=16, y=7: closest beacon is at x=15, y=3
-Sensor at x=14, y=3: closest beacon is at x=15, y=3
-Sensor at x=20, y=1: closest beacon is at x=15, y=3"""
 data = get_data(year=2022, day=15)
 
 dist = lambda p1, p2: int(np.linalg.norm(p1-p2, 1))
@@ -37,10 +23,9 @@ data = [re.findall(r"=([-\d]*)", line) for line in data]
 data = [list(map(int, d)) for d in data]
 data = [[np.array([d[0], d[1]]), np.array([d[2], d[3]])] for d in data]
 data = [(p, b, dist(p, b)) for p,b in data]
-data
 
 
-# In[102]:
+# In[26]:
 
 
 def merge_ranges(left, right):
@@ -54,7 +39,7 @@ def merge_ranges(left, right):
 merge_ranges(range(-4, 0), range(1, 103))
 
 
-# In[103]:
+# In[29]:
 
 
 x = [range(5), range(10, 12), range(-4, 10), range(13, 15), range(-10, -7)]
@@ -72,10 +57,8 @@ def overlap_ranges(ranges):
     output.append(l)
     return output
 
-overlap_ranges(x)
 
-
-# In[104]:
+# In[30]:
 
 
 y = 2000000
@@ -90,17 +73,23 @@ def ranges_for_row(y):
     return coverage
 
 
-# In[105]:
+# In[31]:
 
 
-ranges_for_row(2000000)
+coverage = ranges_for_row(2000000)[0]
 answer = coverage.stop - coverage.start - 1
 answer
 
 
+# In[32]:
+
+
+submit(answer, year=2022, part="a", day=15)
+
+
 # ## Runs in 286 ms which is quite nice, but no way that that will work for 4 million rows 
 
-# In[106]:
+# In[33]:
 
 
 get_ipython().run_line_magic('timeit', 'ranges_for_row(2000000)')
@@ -108,7 +97,7 @@ get_ipython().run_line_magic('timeit', 'ranges_for_row(2000000)')
 
 # ## We'll treat the range of each sensor as a diamond shaped area, intersect all areas and find the interior of that shape. Only space for the distress beacon to hide 
 
-# In[111]:
+# In[34]:
 
 
 import shapely
@@ -125,27 +114,33 @@ polygons = [make_polygon(d) for d in data]
 all_coverages = unary_union(polygons)
 
 
-# In[112]:
+# In[35]:
 
 
 all_coverages
 
 
-# In[118]:
+# In[36]:
 
 
-p.interiors[0].coords.xy
+def get_middle(coords):
+    coords = list(set(coords))
+    coords.sort()
+    return int(coords[len(coords)//2])
+int_x, int_y = all_coverages.interiors[0].coords.xy
+beacon_x = get_middle(int_x)
+beacon_y = get_middle(int_y)
 
 
-# In[99]:
+# In[37]:
 
 
-answer = 2829680*4000000 + 3411840
+answer = beacon_x*4000000 + beacon_y
 answer
 
 
-# In[ ]:
+# In[38]:
 
 
-
+submit(answer, year=2022, part="b", day=15)
 
