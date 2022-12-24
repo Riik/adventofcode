@@ -72,16 +72,14 @@ MAX_COORDS = np.max(np.max(np.array(coords), axis=0)) + 1
 MAX_COORDS
 
 
-# In[66]:
+# In[72]:
 
 
 def in_bounds(p):
     return (min(p) >= 0) and (max(p) < MAX_COORDS)
 
-in_bounds((-1, 0, 0))
 
-
-# In[67]:
+# In[73]:
 
 
 all_tiles = set((x,y,z) for x,y,z in product(range(MAX_COORDS), range(MAX_COORDS), range(MAX_COORDS)))
@@ -90,7 +88,6 @@ reachable = set([(0,0,0)])
 
 i = 0
 while True:
-    print(f"ROUND {i}:")
     i += 1
     new_visit_nodes = set()
     for node in visit_nodes:
@@ -98,10 +95,8 @@ while True:
         neighbours = [n for n in neighbours if in_bounds(n)]
         neighbours = [n for n in neighbours if n not in data]
         neighbours = [n for n in neighbours if n not in reachable]
-#         print(node, neighbours)
         new_visit_nodes.update(neighbours)
         reachable.update(neighbours)
-#     print(new_visit_nodes)
     if len(new_visit_nodes) == 0:
         print("CONVERGED AH YEAH")
         break
@@ -111,14 +106,13 @@ while True:
     
 
 
-# In[68]:
+# In[74]:
 
 
 interior = all_tiles - data - reachable
-interior
 
 
-# In[69]:
+# In[75]:
 
 
 interior_surface = 0
@@ -128,9 +122,15 @@ for p in interior:
 interior_surface
 
 
-# In[70]:
+# In[76]:
 
 
 exterior_surface = surface - interior_surface
 exterior_surface
+
+
+# In[ ]:
+
+
+
 
