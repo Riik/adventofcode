@@ -4,3 +4,4 @@ matplotlib
 networkx
 advent-of-code-data
 ipykernel
+jupyter
