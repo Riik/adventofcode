@@ -1,5 +1,6 @@
-venv
+.venv
 *.ipynb_checkpoint*
 .idea
 *.DS_Store
 *.png
+*.pyc
