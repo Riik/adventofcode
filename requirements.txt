@@ -1,7 +1,0 @@
-plotly
-pandas
-matplotlib
-networkx
-advent-of-code-data
-ipykernel
-jupyter
