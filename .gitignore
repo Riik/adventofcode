@@ -1,4 +1,4 @@
-.venv
+.venv*
 *.ipynb_checkpoint*
 .idea
 *.DS_Store
@@ -6,3 +6,4 @@
 *.pyc
 *.gif
 *.txt
+*.egg-info
