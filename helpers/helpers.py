@@ -60,7 +60,7 @@ directions_map = {
     "SW": (1, -1)
 }
 
-def in_bounds(y, x):
+def in_bounds(y, x, H, W):
     return 0 <= y < H and 0 <= x < W
 
 def get_rel_coords(y, x, dir):
